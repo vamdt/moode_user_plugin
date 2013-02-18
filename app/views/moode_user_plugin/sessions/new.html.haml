@@ -1,0 +1,15 @@
+- if flash[:error]
+  #error_explanation
+    %h2
+      = flash[:error]
+
+.auth-form
+  = form_for :session, :url => sessions_path, :html => { :class => "form-horizontal" } do |f|
+    .auth-form-header
+      %label 登陆
+    .auth-form-body
+      = f.label :username, "用户名"
+      = f.text_field :username, :placeholder => "username"
+      = f.label :password, "密 码"
+      = f.password_field :password, :placeholder => "password"
+      = f.submit '登陆', :class => "btn"

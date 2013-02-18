@@ -2,6 +2,7 @@ require_dependency "moode_user_plugin/application_controller"
 
 module MoodeUserPlugin
   class UsersController < ApplicationController
+    before_filter :admin_authenticate
     # GET /users
     # GET /users.json
     def index
