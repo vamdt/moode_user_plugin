@@ -6,7 +6,7 @@ module MoodeUserPlugin
     # GET /users
     # GET /users.json
     def index
-      @users = User.all
+      @users = User.non_admin_users
   
       respond_to do |format|
         format.html # index.html.erb

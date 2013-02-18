@@ -5,18 +5,18 @@ module MoodeUserPlugin
     include SessionsHelper
     
     def new
-      redirect_to_root if signed_in?
+      redirect_by_role current_user if signed_in?
     end
 
     def create
       user = User.authenticate(params[:session][:username], params[:session][:password])
       if user.nil?
         flash[:error] = "Invalid username/password."
+        redirect_to_root
       else
         sign_in user
+        redirect_by_role user
       end
-
-      redirect_to_root
     end
 
     def destroy
@@ -28,6 +28,14 @@ module MoodeUserPlugin
 
     def redirect_to_root
       redirect_to '/'
+    end
+
+    def redirect_by_role(user)
+      if user.admin
+        redirect_to users_path
+      else
+        redirect_to_root
+      end
     end
 
   end
