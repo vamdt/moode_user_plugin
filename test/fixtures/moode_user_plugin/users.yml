@@ -4,10 +4,10 @@ one:
   username: MyString
   display_name: MyString
   password: MyString
-  role_id: 1
+  role: MyString
 
 two:
   username: MyString
   display_name: MyString
   password: MyString
-  role_id: 1
+  role: MyString

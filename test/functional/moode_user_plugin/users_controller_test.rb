@@ -19,7 +19,7 @@ module MoodeUserPlugin
   
     test "should create user" do
       assert_difference('User.count') do
-        post :create, user: { display_name: @user.display_name, password: @user.password, role_id: @user.role_id, username: @user.username }
+        post :create, user: { display_name: @user.display_name, password: @user.password, role: @user.role, username: @user.username }
       end
   
       assert_redirected_to user_path(assigns(:user))
@@ -36,7 +36,7 @@ module MoodeUserPlugin
     end
   
     test "should update user" do
-      put :update, id: @user, user: { display_name: @user.display_name, password: @user.password, role_id: @user.role_id, username: @user.username }
+      put :update, id: @user, user: { display_name: @user.display_name, password: @user.password, role: @user.role, username: @user.username }
       assert_redirected_to user_path(assigns(:user))
     end
   

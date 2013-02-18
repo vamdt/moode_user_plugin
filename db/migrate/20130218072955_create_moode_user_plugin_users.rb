@@ -4,7 +4,7 @@ class CreateMoodeUserPluginUsers < ActiveRecord::Migration
       t.string :username
       t.string :display_name
       t.string :password
-      t.integer :role_id
+      t.string :role
 
       t.timestamps
     end
