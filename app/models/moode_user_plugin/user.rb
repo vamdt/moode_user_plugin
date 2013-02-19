@@ -1,6 +1,7 @@
 module MoodeUserPlugin
   class User < ActiveRecord::Base
     attr_accessible :display_name, :password, :username, :phone
+    before_create :generate_token
 
     scope :non_admin_users, where(:admin => false)
 
@@ -13,5 +14,15 @@ module MoodeUserPlugin
     def has_password?(submitted_password) 
       password == submitted_password
     end
+
+    private
+
+    def generate_token
+      begin
+        token = SecureRandom.urlsafe_base64
+      end while User.where(:token => token).exists?
+      self.token = token
+    end
+
   end
 end
