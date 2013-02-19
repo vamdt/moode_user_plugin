@@ -1,6 +1,6 @@
 module MoodeUserPlugin
   class User < ActiveRecord::Base
-    attr_accessible :display_name, :password, :username
+    attr_accessible :display_name, :password, :username, :phone
 
     scope :non_admin_users, where(:admin => false)
 

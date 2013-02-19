@@ -4,6 +4,8 @@ class CreateMoodeUserPluginUsers < ActiveRecord::Migration
       t.string :username
       t.string :display_name
       t.string :password
+      t.string :token
+      t.integer :phone
       t.boolean :admin, :default => false
       t.timestamps
     end

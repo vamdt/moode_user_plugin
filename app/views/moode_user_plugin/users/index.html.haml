@@ -2,15 +2,16 @@
 
 %table.table
   %tr
-    %th Username
-    %th Display name
-    %th
+    %th ID
+    %th 姓名
+    %th 电话
     %th
 
   - @users.each do |user|
     %tr
       %td= user.username
       %td= user.display_name
+      %td= user.phone
       %td
         = link_to 'Show', user
         = link_to 'Edit', edit_user_path(user)

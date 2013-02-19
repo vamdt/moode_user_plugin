@@ -1,11 +1,15 @@
 %p#notice= notice
 
 %p
-  %b Username:
+  %b ID:
   = @user.username
 %p
-  %b Display name:
+  %b 姓名:
   = @user.display_name
+%p
+  %b 电话:
+  = @user.phone
+
 
 = link_to 'Edit', edit_user_path(@user)
 \|

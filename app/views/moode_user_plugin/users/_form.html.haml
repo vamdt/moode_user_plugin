@@ -7,13 +7,16 @@
           %li= msg
 
   .field
-    = f.label :username
+    = f.label :username, "ID"
     = f.text_field :username
   .field
-    = f.label :display_name
+    = f.label :display_name, "姓名"
     = f.text_field :display_name
   .field
-    = f.label :password
+    = f.label :phone, "电话"
+    = f.telephone_field :phone
+  .field
+    = f.label :password, "密码"
     = f.password_field :password, :value => @user.password
   .actions
     = f.submit 'Save'
