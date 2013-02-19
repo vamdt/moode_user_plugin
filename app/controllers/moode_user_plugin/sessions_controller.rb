@@ -30,9 +30,13 @@ module MoodeUserPlugin
       redirect_to '/'
     end
 
+    def redirect_to_admin_path
+      redirect_to '/admin/users'
+    end
+
     def redirect_by_role(user)
       if user.admin
-        redirect_to users_path
+        redirect_to_admin_path
       else
         redirect_to_root
       end
