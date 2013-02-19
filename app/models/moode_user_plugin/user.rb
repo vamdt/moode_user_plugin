@@ -19,8 +19,6 @@ module MoodeUserPlugin
       password == submitted_password
     end
 
-    private
-
     def generate_token
       begin
         token = SecureRandom.urlsafe_base64
