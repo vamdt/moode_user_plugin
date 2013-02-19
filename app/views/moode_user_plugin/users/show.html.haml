@@ -9,6 +9,9 @@
 %p
   %b 电话:
   = @user.phone
+%p
+  %b Token:
+  = @user.token
 
 
 = link_to 'Edit', edit_user_path(@user)

@@ -5,13 +5,14 @@
     %th ID
     %th 姓名
     %th 电话
-    %th
+    %th Token
 
   - @users.each do |user|
     %tr
       %td= user.username
       %td= user.display_name
       %td= user.phone
+      %td= user.token
       %td
         = link_to 'Show', user
         = link_to 'Edit', edit_user_path(user)
