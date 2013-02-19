@@ -1,7 +1,7 @@
 module MoodeUserPlugin
   module SessionsHelper
     def sign_in(user)
-      cookies.permanent.signed[:remember_token] = user.id 
+      session[:user_id] = user.id 
       current_user = user
     end
 
@@ -10,7 +10,7 @@ module MoodeUserPlugin
     end
 
     def sign_out
-      cookies.delete(:remember_token)
+      session[:user_id] = nil
       current_user = nil 
     end
 
@@ -41,7 +41,7 @@ module MoodeUserPlugin
     end
 
     def remember_token 
-      cookies.signed[:remember_token] || nil
+      session[:user_id] || nil
     end
   end
 end
