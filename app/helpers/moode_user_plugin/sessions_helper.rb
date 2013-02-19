@@ -27,7 +27,7 @@ module MoodeUserPlugin
     end
 
     def non_admin_authenticate
-      deny_access unless signed_in?
+      deny_access unless signed_in? && ( not current_user.admin )
     end
 
     def admin_authenticate
