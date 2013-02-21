@@ -5,5 +5,10 @@ class MdInitializerGenerator < Rails::Generators::Base
     route("mount MoodeUserPlugin::Engine, :at => '/'")
   end
 
+  desc "Extract migrations"
+  def extract_migration
+    run 'rake moode_user_plugin:install:migrations'
+  end
+
 end
 
