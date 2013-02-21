@@ -1,9 +1,11 @@
 module MoodeUserPlugin
   class User < ActiveRecord::Base
-    attr_accessible :display_name, :password, :username, :phone
     before_create :generate_token
-
     scope :non_admin_users, where(:admin => false)
+
+    attr_accessible :display_name, :password, :username, :phone, :email
+    validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+
 
     def self.authenticate(username, submitted_password)
       user = find_by_username(username)
