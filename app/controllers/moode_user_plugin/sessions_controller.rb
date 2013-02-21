@@ -24,7 +24,7 @@ module MoodeUserPlugin
         redirect_to signin_path
       else
         sign_in user
-        redirect_to_root
+        redirect_to_signed_in_path
       end
     end
 
@@ -39,12 +39,20 @@ module MoodeUserPlugin
       if user.admin
         redirect_to users_path
       else
-        redirect_to settings_path
+        redirect_to_signed_in_path
       end
     end
 
-    def redirect_to_root
-      redirect_to '/'
+    def redirect_to_signed_in_path
+      redirect_to signin_redirect_path
+    end
+
+    def signin_redirect_path
+      if main_app.respond_to?('signin_redirect_path')
+        main_app.signin_redirect_path
+      else
+        '/'
+      end
     end
 
   end
