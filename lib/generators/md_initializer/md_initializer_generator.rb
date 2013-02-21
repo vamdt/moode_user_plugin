@@ -7,7 +7,12 @@ class MdInitializerGenerator < Rails::Generators::Base
 
   desc "Extract migrations"
   def extract_migration
-    run 'rake moode_user_plugin:install:migrations'
+    rake "moode_user_plugin:install:migrations"
+  end
+
+  desc "Run db migrate"
+  def migrate
+    rake "db:migrate"
   end
 
 end
