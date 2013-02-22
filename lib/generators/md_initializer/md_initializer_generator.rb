@@ -9,11 +9,6 @@ class MdInitializerGenerator < Rails::Generators::Base
   def extract_migration
     rake "moode_user_plugin:install:migrations"
   end
-
-  desc "Run db migrate"
-  def migrate
-    rake "db:migrate"
-  end
-  
+    
 end
 
