@@ -14,10 +14,6 @@ class MdInitializerGenerator < Rails::Generators::Base
   def migrate
     rake "db:migrate"
   end
-
-  desc "Initial db data"
-  def seed
-    rake "init_admin_user"
-  end
+  
 end
 
