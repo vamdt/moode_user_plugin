@@ -23,9 +23,12 @@
     = f.password_field :password, :value => @user.password
   .field
     = f.label :is_regenerate_token, "是否重新生成Token"
-    = radio_button_tag :is_regenerate_token, "yes", true 
-    = label_tag "is_regenerate_token_label", "是"
-    = radio_button_tag :is_regenerate_token, "no"
-    = label_tag "is_regenerate_token_label", "否"
+    .radio_horizontal_group
+      .radio_item
+        = radio_button_tag :is_regenerate_token, "yes", true 
+        =label_tag "is_regenerate_token_yes", "是"
+      .radio_item
+        = radio_button_tag :is_regenerate_token, "no"
+        = label_tag "is_regenerate_token_no", "否"
   .actions
     = f.submit 'Save'
