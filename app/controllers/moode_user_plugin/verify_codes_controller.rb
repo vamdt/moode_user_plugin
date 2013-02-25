@@ -2,6 +2,9 @@ require_dependency "moode_user_plugin/application_controller"
 
 module MoodeUserPlugin
   class VerifyCodesController < ApplicationController
+
+    before_filter :admin_authenticate    
+
     # GET /verify_codes
     # GET /verify_codes.json
     def index
