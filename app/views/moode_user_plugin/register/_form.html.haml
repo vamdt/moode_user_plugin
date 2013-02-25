@@ -1,0 +1,28 @@
+= form_for @user, :url => signup_path do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h3= "注册时发生了#{@user.errors.count}个错误:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :username, "ID"
+    = f.text_field :username
+  .field
+    = f.label :display_name, "姓名"
+    = f.text_field :display_name
+  .field
+    = f.label :phone, "电话"
+    = f.telephone_field :phone
+  .field
+    = f.label :email, "邮箱"
+    = f.email_field :email  
+  .field
+    = f.label :password, "密码"
+    = f.password_field :password, :value => @user.password
+  .field
+    = label_tag :verify_code, "验证码(四位数字)"
+    = text_field_tag :verify_code
+  .actions
+    = f.submit 'Save'

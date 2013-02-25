@@ -1,12 +1,14 @@
 module MoodeUserPlugin
   class User < ActiveRecord::Base
     before_create :generate_token
+
     scope :non_admin_users, where(:admin => false)
 
+    has_one :verify_code
+    
     attr_accessible :display_name, :password, :username, :phone, :email
     validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
-
-    has_one :verify_code
+    validates :username, :email, :phone, :presence => true
 
     def self.authenticate(username, submitted_password)
       user = find_by_username(username)
@@ -29,5 +31,9 @@ module MoodeUserPlugin
       self.token = token
     end
 
+    def save_with_verify_code(verify_code)
+      self.verify_code = verify_code  
+      save
+    end
   end
 end
