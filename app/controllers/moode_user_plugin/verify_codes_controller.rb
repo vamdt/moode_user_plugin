@@ -6,7 +6,7 @@ module MoodeUserPlugin
     before_filter :admin_authenticate, :except => [:send_vcode]    
 
     def index
-      @verify_codes = VerifyCode.unused
+      @verify_codes = VerifyCode.all
   
       respond_to do |format|
         format.html # index.html.erb
@@ -39,10 +39,13 @@ module MoodeUserPlugin
     end
 
     def send_vcode
-      phone = params[:phone]
-
+      user = User.find_by_phone(params[:phone])
       respond_to do |format|
-        format.json { head :status => :ok }
+        if user.create_verify_code(:code => VerifyCode.unique_random_code)
+          format.json { head :status => :ok }
+        else
+
+        end
       end
     end
   end

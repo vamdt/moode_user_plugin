@@ -3,8 +3,6 @@ module MoodeUserPlugin
 
     attr_accessible :code
 
-    belongs_to :user
-    
     validates :code, :presence => true
     validates :code, :uniqueness => true
 

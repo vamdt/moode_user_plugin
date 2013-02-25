@@ -6,7 +6,7 @@ class CreateMoodeUserPluginUsers < ActiveRecord::Migration
       t.string :email
       t.string :password
       t.string :token
-      t.integer :phone
+      t.string :phone
       t.boolean :admin, :default => false
       t.timestamps
     end

@@ -1,7 +1,7 @@
 class AddAdminUser < ActiveRecord::Migration
   def up
     admin = ::MoodeUserPlugin::User.new(:username => "admin", :display_name => "admin", 
-    :password => "moodepass", :email => "admin@admin.com")
+    :password => "moodepass", :email => "admin@admin.com", :phone => "123")
     admin.admin = true
     admin.save!
   end
