@@ -12,7 +12,7 @@ module MoodeUserPlugin
 
       respond_to do |format|
         if valid_verify_code_for_user(@verify_code, @user) && @user.save
-          @verify_code.delete
+          VerifyCode.delete_codes_for_phone(@user.phone)
           
           format.html { redirect_to signin_path, notice: 'User was successfully created.' }
           format.json { render json: @user, status: :created, location: @user }

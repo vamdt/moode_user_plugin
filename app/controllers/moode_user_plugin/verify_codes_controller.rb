@@ -39,20 +39,18 @@ module MoodeUserPlugin
     end
 
     def send_vcode
-      user = User.find_by_phone(params[:phone])
+      verify_code = VerifyCode.create_with_phone(params[:phone])
       respond_to do |format|
-        if user.create_verify_code(:code => VerifyCode.unique_random_code)
-          format.json { head :status => :ok }
-        else
-
-        end
+        format.json { head :status => :ok }
       end
     end
 
     private
 
     def extract_phones(phones_text)
-      phones_text.split(/ |,|;|\n/).delete_if { |phone| phone == "" }
+      phones_text.split(/ |,|;|\n/).map do |phone_string|
+        phone_string.strip
+      end.delete_if { |phone| phone == "" }
     end
   end
 end
