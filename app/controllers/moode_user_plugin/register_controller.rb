@@ -11,7 +11,9 @@ module MoodeUserPlugin
       @verify_code = VerifyCode.find_by_code(params[:verify_code])
 
       respond_to do |format|
-        if is_valid_verify_code_for_user(@verify_code, @user) && @user.save_with_verify_code(@verify_code)
+        if valid_verify_code_for_user(@verify_code, @user) && @user.save
+          @verify_code.delete
+          
           format.html { redirect_to signin_path, notice: 'User was successfully created.' }
           format.json { render json: @user, status: :created, location: @user }
         else
@@ -23,15 +25,15 @@ module MoodeUserPlugin
 
     private
 
-    def is_valid_verify_code_for_user(verify_code, user)
+    def valid_verify_code_for_user(verify_code, user)
       if verify_code.nil?
         user.errors.add(:verify_code, "not right")
         false
-      elsif verify_code.alreay_bound
-        user.errors.add(:verify_code, "has alreay bound with others")
-        false                      
+      elsif verify_code.bound_to_phone(user.phone)
+        true                      
       else
-        true
+        user.errors.add(:verify_code, "not right")
+        false
       end
     end
   end

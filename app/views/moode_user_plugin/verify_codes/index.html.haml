@@ -2,14 +2,15 @@
 
 %table.table
   %tr
-    %th Code
-    %th
+    %th 验证码
+    %th 电话
     %th
     %th
 
   - @verify_codes.each do |verify_code|
     %tr
       %td= verify_code.code
+      %td= verify_code.phone
       %td
         = link_to '作废', verify_code, method: :delete, data: { confirm: 'Are you sure?' }
 
@@ -17,8 +18,8 @@
 
 = form_tag "/admin/verify_codes/batch" do
   .field
-    = label_tag :vcode_number, "生成验证码"
-    = number_field_tag :vcode_number, 1, :min => 1
+    = label_tag :phones, "生成验证码（输入电话号码，以回车隔开）"
+    = text_area_tag :phones, nil
   .actions
     = submit_tag 'Save'
 

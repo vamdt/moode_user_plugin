@@ -15,10 +15,10 @@ module MoodeUserPlugin
     end
 
     def batch
-      num = params[:vcode_number].to_i
+      phones = extract_phones(params[:phones])
 
       respond_to do |format|
-        if VerifyCode.batch_create(num)
+        if VerifyCode.batch_create(phones)
           format.html { redirect_to verify_codes_path, notice: 'Verify code was successfully created.' }
           format.json { head :created }
         else
@@ -47,6 +47,12 @@ module MoodeUserPlugin
 
         end
       end
+    end
+
+    private
+
+    def extract_phones(phones_text)
+      phones_text.split(/ |,|;|\n/).delete_if { |phone| phone == "" }
     end
   end
 end

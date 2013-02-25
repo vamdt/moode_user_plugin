@@ -1,20 +1,14 @@
 module MoodeUserPlugin
   class VerifyCode < ActiveRecord::Base
 
-    attr_accessible :code
+    attr_accessible :code, :phone
 
     validates :code, :presence => true
     validates :code, :uniqueness => true
 
-    def self.unused
-      self.all.select do |verify_code|
-        verify_code.user.nil?
-      end
-    end
-
-    def self.batch_create(num)
-      (1..num).each do
-        create :code => unique_random_code
+    def self.batch_create(phones)
+      phones.each do |phone|
+        create :code => unique_random_code, :phone => phone
       end
     end
 
@@ -25,8 +19,8 @@ module MoodeUserPlugin
       code
     end
 
-    def alreay_bound
-      not user.nil?
+    def bound_to_phone(phone)
+      self.phone == phone
     end
 
     private

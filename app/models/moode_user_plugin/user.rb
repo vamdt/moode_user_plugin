@@ -28,10 +28,6 @@ module MoodeUserPlugin
       end while User.where(:token => token).exists?
       self.token = token
     end
-
-    def save_with_verify_code(verify_code)
-      self.verify_code = verify_code  
-      save
-    end
+    
   end
 end
