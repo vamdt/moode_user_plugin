@@ -15,15 +15,15 @@ module MoodeUserPlugin
     end
 
     def batch
-      @verify_code = VerifyCode.new(params[:verify_code])
-  
+      num = params[:vcode_number].to_i
+
       respond_to do |format|
-        if @verify_code.save
-          format.html { redirect_to @verify_code, notice: 'Verify code was successfully created.' }
-          format.json { render json: @verify_code, status: :created, location: @verify_code }
+        if VerifyCode.batch_create(num)
+          format.html { redirect_to verify_codes_path, notice: 'Verify code was successfully created.' }
+          format.json { head :created }
         else
-          format.html { render action: "new" }
-          format.json { render json: @verify_code.errors, status: :unprocessable_entity }
+          format.html { redirect_to verify_codes_path }
+          format.json { head :unprocessable_entity }
         end
       end
     end
