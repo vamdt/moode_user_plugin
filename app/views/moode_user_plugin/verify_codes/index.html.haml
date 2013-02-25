@@ -1,4 +1,4 @@
-%h1 Listing verify_codes
+%h3 没有使用的验证码
 
 %table.table
   %tr
@@ -11,10 +11,14 @@
     %tr
       %td= verify_code.code
       %td
-        = link_to 'Show', verify_code
-        = link_to 'Edit', edit_verify_code_path(verify_code)
-        = link_to 'Destroy', verify_code, method: :delete, data: { confirm: 'Are you sure?' }
+        = link_to '作废', verify_code, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Verify code', new_verify_code_path
+= form_tag "/admin/verify_codes/batch" do
+  .field
+    = label_tag :vcode_number, "生成验证码"
+    = number_field_tag :vcode_number, 1, :min => 1
+  .actions
+    = submit_tag 'Save'
+

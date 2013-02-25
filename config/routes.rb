@@ -3,7 +3,8 @@ MoodeUserPlugin::Engine.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   scope "/admin" do 
     resources :users
-    resources :verify_codes
+    resources :verify_codes, :only => [:index, :destroy]
+    match "/verify_codes/batch" => 'verify_codes#batch', :via => :post
   end
 
   match "/signin" => 'sessions#new'  
@@ -14,6 +15,8 @@ MoodeUserPlugin::Engine.routes.draw do
   match "/settings" => 'settings#show', :via => :get  
   match "/settings/edit" => 'settings#edit', :via => :get , :as => "edit_settings"
   match "/settings" => 'settings#update', :via => :put, :as => "update_settings"
+
+  match "/phone/:phone/vcode" => 'verify_codes#send_vcode'
 
   match "/p/:token" => 'sessions#create_with_token'  
 

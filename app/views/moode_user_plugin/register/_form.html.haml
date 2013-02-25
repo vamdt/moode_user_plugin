@@ -14,7 +14,8 @@
     = f.text_field :display_name
   .field
     = f.label :phone, "电话"
-    = f.telephone_field :phone
+    = f.telephone_field :phone, :style => "vertical-align: middle"
+    %a#fetch_verify_code_link(href="#") 获取验证码 
   .field
     = f.label :email, "邮箱"
     = f.email_field :email  
