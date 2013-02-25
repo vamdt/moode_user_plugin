@@ -1,5 +1,8 @@
 MoodeUserPlugin::Engine.routes.draw do
 
+  resources :verify_codes
+
+
   resources :sessions, :only => [:new, :create, :destroy]
   scope "/admin" do 
     resources :users

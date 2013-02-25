@@ -6,6 +6,7 @@ module MoodeUserPlugin
     attr_accessible :display_name, :password, :username, :phone, :email
     validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
+    has_one :verify_code
 
     def self.authenticate(username, submitted_password)
       user = find_by_username(username)

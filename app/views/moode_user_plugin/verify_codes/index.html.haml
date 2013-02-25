@@ -1,0 +1,19 @@
+%h1 Listing verify_codes
+
+%table
+  %tr
+    %th Code
+    %th
+    %th
+    %th
+
+  - @verify_codes.each do |verify_code|
+    %tr
+      %td= verify_code.code
+      %td= link_to 'Show', verify_code
+      %td= link_to 'Edit', edit_verify_code_path(verify_code)
+      %td= link_to 'Destroy', verify_code, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Verify code', new_verify_code_path
