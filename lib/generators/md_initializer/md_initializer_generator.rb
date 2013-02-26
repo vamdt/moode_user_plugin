@@ -13,7 +13,15 @@ class MdInitializerGenerator < Rails::Generators::Base
 
   desc "Add Plugin config initializer"
   def add_config_initializer
-    initializer('moode_user_plugin.rb') do
+    config_file_name = "moode_user_plugin.rb"
+    config_file_path = File.join(Rails.root, "config", "initializers", config_file_name)
+    add_new_config_initializer(config_file_name) unless File.exist?(config_file_path)
+  end
+
+  private
+
+  def add_new_config_initializer(file)
+    initializer(file) do
       %q|# encoding: UTF-8
 MoodeUserPlugin.sms_server_config = {
   :corp_id => "ZLJK00145",
