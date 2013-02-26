@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.10"
   s.add_dependency 'haml', '~> 3.1.7'
-  s.add_dependency 'seed-fu'
+  s.add_dependency 'httparty', '~> 0.10.2'
   s.add_dependency 'bootstrap-sass', '~> 2.2.2.0'
   # s.add_dependency "jquery-rails"
 
