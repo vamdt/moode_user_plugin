@@ -9,6 +9,8 @@ module MoodeUserPlugin
     validates :phone, :presence => true
     validates :username, :email, :phone, :uniqueness => true
 
+    has_one :data_auth, :as => :accessor_authorizable
+
     def self.authenticate(username, submitted_password)
       user = find_by_username(username)
       return nil if user.nil?
