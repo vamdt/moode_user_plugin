@@ -28,7 +28,7 @@ module MoodeUserPlugin
     end
 
     def sms_from_template(template)
-      template.sub(/\{.*\}/, code.to_s)
+      template.sub(/\{.*\}/, code)
     end
 
     private
@@ -37,7 +37,7 @@ module MoodeUserPlugin
       begin
         code = random_number
       end while not is_unique(code)
-      code
+      code.to_s
     end
 
     def self.is_unique(code)
