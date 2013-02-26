@@ -3,21 +3,26 @@ module MoodeUserPlugin
   class SMSService
     require 'uri'
 
-    def self.send_msg_to_phone(msg, phone)
-      response = HTTParty.get(sms_server_url, :query => query_parmas_to_send_sms(msg, phone))
+    def initialize(sms_server_config = {}, http_proxy)
+      @sms_server_config = sms_server_config
+      @http_proxy = http_proxy
+    end
+
+    def send_msg_to_phone(msg, phone)
+      response = @http_proxy.get(sms_server_url, :query => query_parmas_to_send_sms(msg, phone))
       SMSResponse.new response.code, response.body, response.message, response.headers.inspect
     end
 
     private 
 
-    def self.sms_server_url
-      URI.join(MoodeUserPlugin.sms_server_config[:service_prefix], MoodeUserPlugin.sms_server_config[:send_uri]).to_s
+    def sms_server_url
+      URI.join(@sms_server_config[:service_prefix], @sms_server_config[:send_uri]).to_s
     end
 
-    def self.query_parmas_to_send_sms(msg, phone)
+    def query_parmas_to_send_sms(msg, phone)
       {
-        :CorpID => MoodeUserPlugin.sms_server_config[:corp_id],
-        :Pwd => MoodeUserPlugin.sms_server_config[:pwd],
+        :CorpID => @sms_server_config[:corp_id],
+        :Pwd => @sms_server_config[:pwd],
         :Mobile => phone,
         :Content => msg
       }
