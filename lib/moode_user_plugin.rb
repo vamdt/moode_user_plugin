@@ -4,4 +4,5 @@ require "bootstrap-sass"
 require "httparty"
 
 module MoodeUserPlugin
+  mattr_accessor :sms_server_config
 end

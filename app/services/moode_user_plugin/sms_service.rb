@@ -3,15 +3,6 @@ module MoodeUserPlugin
   class SMSService
     require 'uri'
 
-    def self.sms_server_config_map 
-      {
-        :corp_id => 'ZLJK00145',
-        :pwd => '123456',
-        :service_prefix => 'http://U.wangxun360.com',
-        :send_uri => '/WS/Send.aspx'
-      }
-    end
-
     def self.send_msg_to_phone(msg, phone)
       response = HTTParty.get(sms_server_url, :query => query_parmas_to_send_sms(msg, phone))
       SMSResponse.new response.code, response.body, response.message, response.headers.inspect
@@ -20,13 +11,13 @@ module MoodeUserPlugin
     private 
 
     def self.sms_server_url
-      URI.join(sms_server_config_map[:service_prefix], sms_server_config_map[:send_uri]).to_s
+      URI.join(MoodeUserPlugin.sms_server_config[:service_prefix], MoodeUserPlugin.sms_server_config[:send_uri]).to_s
     end
 
     def self.query_parmas_to_send_sms(msg, phone)
       {
-        :CorpID => sms_server_config_map[:corp_id],
-        :Pwd => sms_server_config_map[:pwd],
+        :CorpID => MoodeUserPlugin.sms_server_config[:corp_id],
+        :Pwd => MoodeUserPlugin.sms_server_config[:pwd],
         :Mobile => phone,
         :Content => msg
       }
