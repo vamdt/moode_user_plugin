@@ -2,7 +2,6 @@ require_dependency "moode_user_plugin/application_controller"
 
 module MoodeUserPlugin
   class VerifyCodesController < ApplicationController
-
     before_filter :admin_authenticate, :except => [:send_vcode]    
 
     def index
@@ -39,9 +38,15 @@ module MoodeUserPlugin
     end
 
     def send_vcode
-      verify_code = VerifyCode.create_with_phone(params[:phone])
+      verify_code = VerifyCode.new_code(:phone => params[:phone])
+      sms_response = SMSService.send_msg_to_phone(verify_code.sms_message, verify_code.phone)
+
       respond_to do |format|
-        format.json { head :status => :ok }
+        if sms_response.ok && verify_code.save
+          format.json { head :status => :no_content }
+        else
+          format.json { render json: sms_response.error, status: :error }
+        end
       end
     end
 

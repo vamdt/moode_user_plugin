@@ -10,8 +10,16 @@ $(function () {
 function fetch_verify_code_for_phone (phone) {
   $.ajax({
     url: "/phone/" + phone + "/vcode",
-    success: function () {
-      console.log("eee")
+    success: function (result) {
+      show_result("验证码已发送。")
+    },
+    error: function(xhr, textStatus, errorThrown) {
+      console.log(xhr.responseText)
+      show_result("发送验证码出错")
     }
   })
+}
+
+function show_result(msg) {
+  alert(msg)
 }

@@ -1,3 +1,4 @@
+# encoding: UTF-8"
 module MoodeUserPlugin
   class VerifyCode < ActiveRecord::Base
 
@@ -12,8 +13,8 @@ module MoodeUserPlugin
       end
     end
 
-    def self.create_with_phone(phone)
-      create :code => unique_random_code, :phone => phone
+    def self.new_code(attributes = {})
+      self.new attributes.merge(:code => unique_random_code)
     end
 
     def self.delete_codes_for_phone(phone)
@@ -24,6 +25,10 @@ module MoodeUserPlugin
 
     def bound_to_phone(phone)
       self.phone == phone
+    end
+
+    def sms_message
+      "您的注册码是 #{code}, 欢迎使用该注册码进行注册"
     end
 
     private
