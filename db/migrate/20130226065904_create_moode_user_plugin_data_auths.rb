@@ -4,7 +4,6 @@ class CreateMoodeUserPluginDataAuths < ActiveRecord::Migration
       t.integer :level
       t.string :name
       t.references :data_authorizable, :polymorphic => true
-      t.references :accessor_authorizable, :polymorphic => true
       t.timestamps
     end
   end
