@@ -1,4 +1,4 @@
-# encoding: UTF-8"
+# encoding: UTF-8
 module MoodeUserPlugin
   class VerifyCode < ActiveRecord::Base
 
@@ -27,8 +27,8 @@ module MoodeUserPlugin
       self.phone == phone
     end
 
-    def sms_message
-      "您的注册码是 #{code}, 欢迎使用该注册码进行注册"
+    def sms_from_template(template)
+      template.sub(/\{.*\}/, code.to_s)
     end
 
     private

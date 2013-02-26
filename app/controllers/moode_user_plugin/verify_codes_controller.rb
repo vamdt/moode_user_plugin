@@ -39,9 +39,11 @@ module MoodeUserPlugin
 
     def send_vcode
       verify_code = VerifyCode.new_code(:phone => params[:phone])
+
       sms_service = SMSService.new(MoodeUserPlugin.sms_server_config, HTTParty)
-      
-      sms_response = sms_service.send_msg_to_phone(verify_code.sms_message, verify_code.phone)
+      sms_template = MoodeUserPlugin.verify_code_message_template
+
+      sms_response = sms_service.send_msg_to_phone(verify_code.sms_from_template(sms_template), verify_code.phone)
 
       respond_to do |format|
         if sms_response.ok && verify_code.save
