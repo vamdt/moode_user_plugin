@@ -8,9 +8,9 @@ module MoodeUserPlugin
     def signin
       user = User.authenticate(params[:username], params[:password])
       unless user.nil?
-        respond_with {:token => user.token }.to_json, :status => :ok
+        render :json => {:token => user.token}, :status => :accepted
       else
-        respond_with "Invalid username or password.", :status => :unauthorized
+        render :json => {:message => "Invalid username or password."}, :status => :unauthorized
       end
     end
 
