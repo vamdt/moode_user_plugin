@@ -20,5 +20,10 @@ MoodeUserPlugin::Engine.routes.draw do
 
   match "/p/:token" => 'sessions#create_with_token'  
 
-
+  scope '/api' do
+    scope '/v1' do
+      match '/signin' => 'account_api#signin', :via => :post
+    end
+  end
+  
 end
