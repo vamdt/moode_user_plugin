@@ -25,10 +25,10 @@
     = f.label :is_regenerate_token, "是否重新生成Token"
     .radio_horizontal_group
       .radio_item
-        = radio_button_tag :is_regenerate_token, "yes", true 
+        = radio_button_tag :is_regenerate_token, "yes", @user.new_record?
         =label_tag "is_regenerate_token_yes", "是"
       .radio_item
-        = radio_button_tag :is_regenerate_token, "no"
+        = radio_button_tag :is_regenerate_token, "no", !@user.new_record?, :disabled => @user.new_record?
         = label_tag "is_regenerate_token_no", "否"
   .actions
     = f.submit 'Save'
