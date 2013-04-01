@@ -33,7 +33,7 @@ module MoodeUserPlugin
     end
 
     def as_json(options)
-      super({ :methods => [:username, :display_name, :phone, :created_at, :token]}.merge(options || {}))
+      super({ :only => [:username, :display_name, :phone, :created_at, :token]}.merge(options || {}))
     end
     
   end
