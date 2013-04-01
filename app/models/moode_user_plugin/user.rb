@@ -31,6 +31,10 @@ module MoodeUserPlugin
       end while User.where(:token => token).exists?
       self.token = token
     end
+
+    def as_json(options)
+      super({ :methods => [:username, :display_name, :phone, :created_at, :token]}.merge(options || {}))
+    end
     
   end
 end
