@@ -24,7 +24,7 @@ module MoodeUserPlugin
         :CorpID => @sms_server_config[:corp_id],
         :Pwd => @sms_server_config[:pwd],
         :Mobile => phone,
-        :Content => msg
+        :Content => msg.encode("GB2312")
       }
     end
 
