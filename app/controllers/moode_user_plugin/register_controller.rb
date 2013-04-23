@@ -11,7 +11,7 @@ module MoodeUserPlugin
       @verify_code = VerifyCode.find_by_code(params[:verify_code])
 
       respond_to do |format|
-        if valid_verify_code_for_user(@verify_code, @user) && @user.save
+        if ( !MoodeUserPlugin.need_verify_code || valid_verify_code_for_user(@verify_code, @user) ) && @user.save
           VerifyCode.delete_codes_for_phone(@user.phone)
           
           format.html { redirect_to signin_path, notice: 'User was successfully created.' }

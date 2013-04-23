@@ -1,4 +1,6 @@
 # encoding: UTF-8
+require 'fileutils'
+
 class MdInitializerGenerator < Rails::Generators::Base
   
   desc "Mount moode user plugin to app root"
@@ -15,7 +17,8 @@ class MdInitializerGenerator < Rails::Generators::Base
   def add_config_initializer
     config_file_name = "moode_user_plugin.rb"
     config_file_path = File.join(Rails.root, "config", "initializers", config_file_name)
-    add_new_config_initializer(config_file_name) unless File.exist?(config_file_path)
+    FileUtils.rm config_file_path
+    add_new_config_initializer(config_file_name)
   end
 
   private
@@ -30,6 +33,7 @@ MoodeUserPlugin.sms_server_config = {
   :send_uri => "/WS/Send.aspx"
 }
 MoodeUserPlugin.verify_code_message_template = "您的注册码是:{code}, 欢迎使用该注册码进行注册。"
+MoodeUserPlugin.need_verify_code = true
       |
     end
   end
