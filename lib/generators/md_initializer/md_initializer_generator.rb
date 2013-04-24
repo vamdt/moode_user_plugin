@@ -17,7 +17,7 @@ class MdInitializerGenerator < Rails::Generators::Base
   def add_config_initializer
     config_file_name = "moode_user_plugin.rb"
     config_file_path = File.join(Rails.root, "config", "initializers", config_file_name)
-    FileUtils.rm config_file_path
+    FileUtils.rm config_file_path if File.exist?(config_file_path)
     add_new_config_initializer(config_file_name)
   end
 
