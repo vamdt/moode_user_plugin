@@ -11,8 +11,10 @@ MoodeUserPlugin::Engine.routes.draw do
   match "/signout" => 'sessions#destroy'  
   match "/signup" => 'register#new', :via => :get, :as => 'signup'
   match "/signup" => 'register#create', :via => :post
+  match "/signup_in" => 'register#create_and_sign_in', :via =>:post
 
-  match "/settings" => 'settings#show', :via => :get  
+  match "/settings" => 'settings#show', :via => :get
+
   match "/settings/edit" => 'settings#edit', :via => :get , :as => "edit_settings"
   match "/settings" => 'settings#update', :via => :put, :as => "update_settings"
 

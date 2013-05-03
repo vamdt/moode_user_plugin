@@ -7,7 +7,7 @@ module MoodeUserPlugin
     attr_accessible :display_name, :password, :username, :phone, :email
     validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
     validates :email, :password, :display_name, :presence => true
-    validates :username, :email, :phone, :uniqueness => true
+    validates :email, :uniqueness => true
 
     has_one :data_auth, :as => :accessor_authorizable
 

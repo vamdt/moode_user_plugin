@@ -23,6 +23,31 @@ module MoodeUserPlugin
       end
     end
 
+
+     def create_and_sign_in
+       @user = User.new(params[:user])
+       @verify_code = VerifyCode.find_by_code(params[:verify_code])
+
+       flash[:question_id] = params[:question_id]
+       sign_in @user
+
+       puts "------------------------------#@user"
+       puts "------------------------------#{current_user}"
+
+       respond_to do |format|
+         if ( !MoodeUserPlugin.need_verify_code || valid_verify_code_for_user(@verify_code, @user) ) && @user.save
+           VerifyCode.delete_codes_for_phone(@user.phone)
+
+           format.html { redirect_to main_app.signin_redirect_path, notice: 'User was successfully created.' }
+           format.json { render json: @user, status: :created, location: @user }
+         else
+           format.html { render action: "new" }
+           format.json { render json: @user.errors, status: :unprocessable_entity }
+         end
+       end
+     end
+
+
     private
 
     def valid_verify_code_for_user(verify_code, user)
