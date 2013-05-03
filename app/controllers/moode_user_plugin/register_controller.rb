@@ -14,7 +14,7 @@ module MoodeUserPlugin
         if ( !MoodeUserPlugin.need_verify_code || valid_verify_code_for_user(@verify_code, @user) ) && @user.save
           VerifyCode.delete_codes_for_phone(@user.phone)
           
-          format.html { redirect_to signin_path, notice: 'User was successfully created.' }
+          format.html { redirect_to signin_path, :params=>params, notice: 'User was successfully created.' }
           format.json { render json: @user, status: :created, location: @user }
         else
           format.html { render action: "new" }
