@@ -2,7 +2,7 @@
 
 Add this line to your application's Gemfile:
 
-  gem 'moode_user_plugin', :git => 'git@github.com:lishoubo/moode_user_plugin.git'
+  gem 'moode_user_plugin', :git => 'git@github.com:vamdt/moode_user_plugin.git'
 
 ## 使用
 
