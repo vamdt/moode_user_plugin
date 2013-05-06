@@ -24,20 +24,16 @@ module MoodeUserPlugin
     end
 
 
-     def create_and_sign_in
+     def create_by_email
        @user = User.new(params[:user])
        @verify_code = VerifyCode.find_by_code(params[:verify_code])
-
-       flash[:question_id] = params[:question_id]
-       #sign_in @user
-
-
+       redirect_path = params[:redirect_url] || main_app.signin_redirect_path
 
        respond_to do |format|
          if ( !MoodeUserPlugin.need_verify_code || valid_verify_code_for_user(@verify_code, @user) ) && @user.save
-           sign_in @user #sign in after user save..
+           sign_in @user
 
-           format.html { redirect_to main_app.signin_redirect_path, notice: 'User was successfully created.' }
+           format.html { redirect_to redirect_path, notice: 'User was successfully created.' }
            format.json { render json: @user, status: :created, location: @user }
          else
            format.html { render action: "new" }
