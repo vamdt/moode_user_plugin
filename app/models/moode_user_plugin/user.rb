@@ -1,3 +1,4 @@
+# coding:utf-8
 module MoodeUserPlugin
   class User < ActiveRecord::Base
     before_create :generate_token
@@ -5,9 +6,12 @@ module MoodeUserPlugin
     scope :non_admin_users, where(:admin => false)
 
     attr_accessible :display_name, :password, :username, :phone, :email
-    validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
-    validates :email, :password, :display_name, :presence => true
-    validates :email, :uniqueness => true
+    validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "Email输入格式错误！" }
+    validates_presence_of   :email,         :message => "Email必须填写！"
+    validates_presence_of   :password,      :message => "密码必须填写！"
+    validates_presence_of   :display_name,  :message => "昵称必须填写！"
+    validates_uniqueness_of :email,         :message => "该email已被注册！"
+    validates_uniqueness_of :display_name,  :message => "该昵称已被使用！"
 
     has_one :data_auth, :as => :accessor_authorizable
 
