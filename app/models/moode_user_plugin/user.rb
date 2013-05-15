@@ -15,6 +15,8 @@ module MoodeUserPlugin
 
     has_one :data_auth, :as => :accessor_authorizable
 
+    has_many :authorizations
+
     def self.authenticate(username, submitted_password)
       user = find_by_username(username)
       user = find_by_email(username) if user.nil?
