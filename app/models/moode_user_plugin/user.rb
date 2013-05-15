@@ -11,7 +11,7 @@ module MoodeUserPlugin
     validates_presence_of   :password,      :message => "密码必须填写！", :unless => :is_weibo_user?
     validates_presence_of   :display_name,  :message => "昵称必须填写！", :unless => :is_weibo_user?
     validates_uniqueness_of :email,         :message => "该email已被注册！", :unless => :is_weibo_user?
-    validates_uniqueness_of :display_name,  :message => "该昵称已被使用！", :unless => :is_weibo_user?
+    validates_uniqueness_of :display_name,  :message => "该昵称已被使用！"
 
     has_one :data_auth, :as => :accessor_authorizable
 
