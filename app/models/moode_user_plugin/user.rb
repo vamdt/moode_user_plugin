@@ -9,10 +9,10 @@ module MoodeUserPlugin
     validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "Email输入格式错误！" }
 
     with_options :unless=> :has_authorizations do |user|
-      validates_presence_of   :email,         :message => "Email必须填写！"
-      validates_presence_of   :password,      :message => "密码必须填写！"
-      validates_presence_of   :display_name,  :message => "昵称必须填写！"
-      validates_uniqueness_of :email,         :message => "该email已被注册！"
+      user.validates_presence_of   :email,         :message => "Email必须填写！"
+      user.validates_presence_of   :password,      :message => "密码必须填写！"
+      user.validates_presence_of   :display_name,  :message => "昵称必须填写！"
+      user.validates_uniqueness_of :email,         :message => "该email已被注册！"
     end
 
     validates_uniqueness_of :display_name,  :message => "该昵称已被使用！"
@@ -50,6 +50,7 @@ module MoodeUserPlugin
 
     #validate
     def has_authorizations
+      puts "------------------#{self.authorizations.size > 0}----------------"
       self.authorizations.size > 0
     end
     
