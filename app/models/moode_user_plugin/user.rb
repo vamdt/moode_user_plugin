@@ -5,12 +5,16 @@ module MoodeUserPlugin
 
     scope :non_admin_users, where(:admin => false)
 
-    attr_accessible :display_name, :password, :username, :phone, :email, :is_weibo_user
+    attr_accessible :display_name, :password, :username, :phone, :email
     validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "Email输入格式错误！" }
-    validates_presence_of   :email,         :message => "Email必须填写！", :unless => :is_weibo_user?
-    validates_presence_of   :password,      :message => "密码必须填写！", :unless => :is_weibo_user?
-    validates_presence_of   :display_name,  :message => "昵称必须填写！", :unless => :is_weibo_user?
-    validates_uniqueness_of :email,         :message => "该email已被注册！", :unless => :is_weibo_user?
+
+    with_options :if=> (:authorizations.count <= 0) do |user|
+      validates_presence_of   :email,         :message => "Email必须填写！"
+      validates_presence_of   :password,      :message => "密码必须填写！"
+      validates_presence_of   :display_name,  :message => "昵称必须填写！"
+      validates_uniqueness_of :email,         :message => "该email已被注册！"
+    end
+
     validates_uniqueness_of :display_name,  :message => "该昵称已被使用！"
 
     has_one :data_auth, :as => :accessor_authorizable
