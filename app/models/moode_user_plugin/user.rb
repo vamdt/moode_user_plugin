@@ -8,7 +8,7 @@ module MoodeUserPlugin
     attr_accessible :display_name, :password, :username, :phone, :email
     validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "Email输入格式错误！" }
 
-    with_options :if=> (:authorizations.count <= 0) do |user|
+    with_options :unless=> :has_authorizations do |user|
       validates_presence_of   :email,         :message => "Email必须填写！"
       validates_presence_of   :password,      :message => "密码必须填写！"
       validates_presence_of   :display_name,  :message => "昵称必须填写！"
@@ -45,6 +45,12 @@ module MoodeUserPlugin
 
     def as_json(options)
       super({ :only => [:username, :display_name, :phone, :created_at, :token]}.merge(options || {}))
+    end
+
+
+    #validate
+    def has_authorizations
+      self.authorizations.size > 0
     end
     
   end
