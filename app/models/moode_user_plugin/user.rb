@@ -50,8 +50,7 @@ module MoodeUserPlugin
 
     #validate
     def has_authorizations
-      puts "------------------#{self.authorizations.size > 0}----------------"
-      self.authorizations.size > 0
+      self.authorizations.count > 0
     end
     
   end
