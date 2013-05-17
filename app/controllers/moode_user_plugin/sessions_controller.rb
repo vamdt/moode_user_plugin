@@ -30,7 +30,7 @@ module MoodeUserPlugin
 
     def destroy
       sign_out
-      redirect_to root_path
+      redirect_to signin_path
     end
 
     private
