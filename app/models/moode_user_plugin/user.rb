@@ -5,7 +5,7 @@ module MoodeUserPlugin
 
     scope :non_admin_users, where(:admin => false)
 
-    attr_accessible :display_name, :password, :username, :phone, :email
+    attr_accessible :display_name, :password, :username, :phone, :email, :remember_token
     validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "Email输入格式错误！" }
 
     with_options :unless=> :has_authorizations do |user|
@@ -52,6 +52,13 @@ module MoodeUserPlugin
     def has_authorizations
       self.authorizations.count > 0
     end
+
+
+    def create_remember_token
+      update_attribute(:remember_token, SecureRandom.urlsafe_base64)
+    end
+
+
     
   end
 end
