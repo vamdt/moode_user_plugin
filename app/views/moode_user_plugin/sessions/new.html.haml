@@ -8,8 +8,8 @@
     .auth-form-header
       %label 登陆
     .auth-form-body
-      = f.label :username, "用户名"
-      = f.text_field :username, :placeholder => "username"
+      = f.label :email, "Email"
+      = f.text_field :email, :placeholder => "email"
       = f.label :password, "密 码"
       = f.password_field :password, :placeholder => "password"
       = f.submit '登陆', :class => "btn"
