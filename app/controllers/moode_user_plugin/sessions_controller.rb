@@ -37,7 +37,7 @@ module MoodeUserPlugin
 
     def redirect_by_role(user)
       if user.admin
-        redirect_to users_path
+        redirect_to "/admin"
       else
         redirect_to_signed_in_path
       end
