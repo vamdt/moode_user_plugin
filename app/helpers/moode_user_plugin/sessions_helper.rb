@@ -11,7 +11,7 @@ module MoodeUserPlugin
         user.create_remember_token
         cookies[:remember_token] = {
             :value => user.remember_token,
-            :expires => 5.minutes.from_now.utc
+            :expires => 1.weeks.from_now.utc
         }
       end
     end
