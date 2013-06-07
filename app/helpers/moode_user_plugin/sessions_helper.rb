@@ -36,7 +36,15 @@ module MoodeUserPlugin
     end
 
     def deny_access
-      redirect_to '/signin', :notice => "Please sign in to access this page."
+      redirect_to '/', :notice => "Please sign in to access this page."
+    end
+
+    def ensure_logged_in
+      deny_access unless signed_in?
+    end
+
+    def ensure_not_logged_in
+      deny_access if signed_in?
     end
 
     def non_admin_authenticate

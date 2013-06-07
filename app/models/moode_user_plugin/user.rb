@@ -53,12 +53,10 @@ module MoodeUserPlugin
       self.authorizations.count > 0
     end
 
-
     def create_remember_token
       update_attribute(:remember_token, SecureRandom.urlsafe_base64)
     end
 
-
-    
   end
+
 end
