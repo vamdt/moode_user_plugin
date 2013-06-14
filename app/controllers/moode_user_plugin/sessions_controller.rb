@@ -8,7 +8,7 @@ module MoodeUserPlugin
     end
 
     def create
-      user = User.authenticate(params[:session][:username], params[:session][:password])
+      user = User.authenticate(params[:session][:email], params[:session][:password])
       if user.nil?
         flash[:error] = "Invalid username/password."
         redirect_to signin_path
