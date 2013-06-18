@@ -1,3 +1,4 @@
+# coding: utf-8
 require_dependency "moode_user_plugin/application_controller"
 
 module MoodeUserPlugin
@@ -9,13 +10,19 @@ module MoodeUserPlugin
 
     def create
       user = User.authenticate(params[:session][:email], params[:session][:password])
-      if user.nil?
-        flash[:error] = "Invalid username/password."
-        redirect_to signin_path
-      else
-        sign_in user
-        redirect_by_role user
+
+      respond_to do |format|
+        if user.nil?
+          errors ||= [] << "邮箱或密码错误！"
+          format.html { redirect_to signin_path }
+          format.json { render json: {:errors => errors, :succeed => false} }
+        else
+          sign_in user
+          format.html {redirect_by_role user }
+          format.json {render json: {:succeed => true}}
+        end
       end
+
     end
 
     def create_with_token

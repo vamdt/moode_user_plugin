@@ -15,10 +15,10 @@ module MoodeUserPlugin
           VerifyCode.delete_codes_for_phone(@user.phone)
           
           format.html { redirect_to signin_path, :params=>params, notice: 'User was successfully created.' }
-          format.json { render json: @user, status: :created, location: @user }
+          format.json { render json: @user, status: :created, :succeed => true }
         else
           format.html { render action: "new" }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json { render json: @user.errors, status: :unprocessable_entity, :succeed => false }
         end
       end
     end
