@@ -7,9 +7,8 @@ class ChangePhoneToString < ActiveRecord::Migration
   def change
     change_column :moode_user_plugin_users, :phone, :string
 
-    ::MoodeUserPlugin::User.all.each do|user|
-      user.phone = "123456" if user.phone.nil?
-      user.save
+    ::MoodeUserPlugin::User.all.each do |user|
+      user.update_attribute(:phone, "123456") if user.phone.nil?
     end
   end
 end
