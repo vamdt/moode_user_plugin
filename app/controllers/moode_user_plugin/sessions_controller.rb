@@ -19,7 +19,7 @@ module MoodeUserPlugin
         else
           sign_in user
           format.html {redirect_by_role user }
-          format.json {render json: {:succeed => true}}
+          format.json {render json: {:succeed => true, :admin => (user.admin ? true : false)}}
         end
       end
 
